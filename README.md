@@ -4,12 +4,12 @@ This is a python package to make your lives easier by using python code to do st
 
 ## Installation
 
-```
+```python 
 pip install stats-advanced
 ```
 
 ## Import 
-```
+```python
 """
 You can import the needed functionalities as per your needs
 """
@@ -26,7 +26,7 @@ from stats_advanced import MultiVariateRegression
 ## Usage 
 
 ### Using Mean functionality
-```
+```python
 # Reading the dataframe for continuous series 
 mean_df = pd.read_csv('https://raw.githubusercontent.com/aayush1036/data/main/mean.csv')
 mean_cont = Mean(data=mean_df, x_col='X', f_col='F') # Creating an instance of the mean class
@@ -44,7 +44,7 @@ Mean.print_mean_individual(series) # Calling the method to print the mean of ind
 
 
 ### Using the Median functionality
-```
+```python
 # Reading the dataframe for the continuous series 
 median_cont = pd.read_csv("https://raw.githubusercontent.com/aayush1036/data/main/median.csv")
 median_continuous = Median(data=median_cont, x_col="X", f_col="F") #Creating an instance of the median class
@@ -66,7 +66,7 @@ median_open_ended.print_quartiles_open_ended() #Printing the quartiles of the op
 ```
 
 ### Using the Mode functionality
-```
+```python
 #Reading the dataframe for finding the mode of continuous series 
 mode_continuous = pd.read_csv("https://raw.githubusercontent.com/aayush1036/data/main/mode.csv")
 mode_cont = Mode(data=mode_continuous, x_col="X", f_col="F") #Creating instance of Mode class
@@ -79,7 +79,7 @@ mode_discrete.print_mode_discrete() #Printing the mode of the discrete series wi
 ```
 
 ### Using the StandardDeviation functionality
-```
+```python
 #Reading the dataframe for finding the standard deviation of continuous series 
 stdev_cont = pd.read_csv("https://raw.githubusercontent.com/aayush1036/data/main/stdev_cont.csv")
 standardDeviation = StandardDeviation(data=stdev_cont, x_col="X", f_col="F") #Creating instance of StandardDeviation class
@@ -96,7 +96,7 @@ individual_stdev = StandardDeviation.print_stdev_individual(myList) #Printing th
 ```
 
 ### Using the Skewness functionality
-```
+```python
 #Reading the dataframe for finding the skewness of continuous series 
 skew_continuous = pd.read_csv("https://raw.githubusercontent.com/aayush1036/data/main/skew_cont.csv")
 skew_cont = Skewness(data=skew_continuous, x_col="X", f_col="F")  #Creating instance of Skewness class
@@ -115,7 +115,7 @@ skewness_discrete = skew_discrete.print_skewness_discrete() #Printing the skewne
 
 ### Using the UnivariateRegression functionality 
 
-```
+```python
 #Reading the dataset for Univariate regression 
 data_uni = pd.read_csv("https://raw.githubusercontent.com/aayush1036/data/main/Popu-profit.csv")
 X = data_uni["col1"].values #storing the x values 
@@ -140,7 +140,7 @@ print(f"The adjusted R^2 is {adjusted_r_squared}")
 ```
 
 ### Using the MultiVariateRegression functionality
-```
+```python
 #Reading the dataset for Multivariate regression 
 data_multi = pd.read_csv("https://raw.githubusercontent.com/aayush1036/data/main/multi-regression.csv")
 regressor = MultiVariateRegression(data_multi) #Creating an instance of Multivariateregression class
