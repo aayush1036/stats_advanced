@@ -87,7 +87,7 @@ standardDeviation.print_stdev_cont() #Printing the standard deviation of the con
 
 #Reading the dataframe for finding the standard deviation of discrete series 
 stdev_disc = pd.read_csv("https://raw.githubusercontent.com/aayush1036/data/main/stdev_discrete.csv")
-discreteStdev = StandardDeviation(data=stdev_disc, x_col="X", f_col="F") Creating instance of StandardDeviation class
+discreteStdev = StandardDeviation(data=stdev_disc, x_col="X", f_col="F") #Creating instance of StandardDeviation class
 discreteStdev.print_stdev_discrete() #Printing the standard deviation of the discrete series with necessary details 
 
 #Generating random data for finding standard deviation of individual series 
