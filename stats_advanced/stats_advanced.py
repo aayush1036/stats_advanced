@@ -57,7 +57,7 @@ class Mean:
         mean = self.calculate_mean_from_ci()
         lower, upper, mid_values, frequency = self.__get_ci_list()
         df = self.print_mean_df()
-        print("The mean for the given data series is")
+        print("The dataframe for finding the mean for the given data series is")
         print(df)
         print("\n")
         print(f"The cumulative frequency is {sum(frequency)}")
@@ -107,7 +107,7 @@ class Mean:
         mean = self.calculate_mean_discrete()
         x_values, f_values, prod_list = self.__get_list_discrete()
         mean_discrete_df = self.print_mean_discrete_df()
-        print("The mean for the given data series is")
+        print("The dataframe for finding the mean for the given data series is")
         print(mean_discrete_df)
         print("\n")
         print(f"The sum of f*x is {sum(prod_list)}")
@@ -125,6 +125,10 @@ class Mean:
         """
         mean = sum(val_list)/len(val_list)
         return mean, sum(val_list), len(val_list)
+    @staticmethod
+    def return_mean_individual(series):
+        mean, sum_val, len_val = Mean.get_mean_individual(series)
+        return mean
     @staticmethod
     def print_mean_individual(val_list):
         """
@@ -166,6 +170,7 @@ class Median:
         """
         df = self.data
         df["CF"] = df[self.f_col].cumsum()
+        print('The dataframe used to calculate the median is:')
         print(df)
 
     def __find_median_continuous(self):
@@ -393,6 +398,39 @@ class Median:
     def return_quartile_open_ended(self):
         q1_val, q2_val, q3_val = self.__get_quartiles_open_ended()
         return q1_val, q2_val, q3_val
+    
+    @staticmethod
+    def get_median_individual(list_values):
+        """
+        This function calculates the median of individual series
+        Inputs:
+        list_values: The individual series whose median has to be calculated 
+        Returns:
+        median: The median of that individual series
+        """
+        list_values.sort()
+        len_list = len(list_values)
+        if len_list%2 !=0:
+            median = list_values[int((len_list+1)/2)-1]
+        else:
+            median = (list_values[int(len_list/2)-1] + list_values[(int(len_list/2)+1)]-1)/2
+        return median
+    @staticmethod
+    def print_median_individual(value_list):
+        """
+        Prints the median of the individual series with necessary details
+        Inputs:
+        value_list: The individual series whose median has to be calculated 
+        Returns:
+        None
+        """
+        median_value = Median.get_median_individual(value_list)
+        print(f'The length of this list is {len(value_list)}')
+        if len(value_list)%2 != 0:
+            print(f'Since this list has odd number of elements, the median is at the {(len(value_list)+1)/2} th position')
+        else:
+            print(f'Since this list has even number of elements, the meidian is the average of {len(value_list)/2} and {(len(value_list)/2)+1} th positions')
+        print(f'Hence, the median is {median_value}')
 
 class Mode:
 
@@ -495,6 +533,19 @@ class Mode:
         idx_max = f.index(max(f))
         print(f"The maximum frequency is {f[idx_max]}")
         print(f"Hence the mode corresponding to maximum frequency is {mode}")
+        
+    @staticmethod
+    def find_mode_individual(val_list):
+        unique_items = np.unique(val_list)
+        count_list = [val_list.count(i) for i in unique_items]
+        idx_max = count_list.index(max(count_list))
+        mode = unique_items[idx_max]
+        return mode
+    @staticmethod
+    def print_mode_individual(val_list):
+        mode_individual = Mode.find_mode_individual(val_list)
+        print(f'The count of the value {mode_individual} is {val_list.count(mode_individual)}')
+        print(f'Hence the mode is {mode_individual}')
 
 
 class StandardDeviation:
@@ -617,6 +668,9 @@ class StandardDeviation:
         variance_individual = sum(sq_diff_series)/len(sq_diff_series)
         stdev_individual = variance_individual**(1/2)
         return diff_series, sq_diff_series, stdev_individual
+    def return_stdev_individual(series):
+        diff_series, sq_diff_series, stdev_individual = StandardDeviation.__standard_deviation_individual(series)
+        return stdev_individual
     @staticmethod
     def print_stdev_individual(series):
         """
@@ -729,7 +783,39 @@ class Skewness:
         print(f'The value of the second quartile of the open ended series is {q2}')
         print(f'The value of the third quartile of the open ended series is {q3}')
         print(f'Hence the skewness of the series is {skewness}')
-
+        
+    @staticmethod
+    def __find_skewness_individual(series):
+        """
+        Finds the skewness of the individual series
+        Inputs:
+        series: the invidual series whose skewness is to be found
+        Returns:
+        mean_individual: the mean of the individual series
+        mode_individual: the mode of the individual series
+        stdev_individual: the standard deviation of the individual series
+        skewness: the skewness of the individual series
+        """
+        mean_individual = Mean.return_mean_individual(series)
+        mode_individual = Mode.find_mode_individual(series)
+        stdev_individual = StandardDeviation.return_stdev_individual(series)
+        skewness = (mean_individual-mode_individual)/stdev_individual
+        return mean_individual, mode_individual, stdev_individual, skewness
+    @staticmethod
+    def print_skewness_individual(series):
+        """
+        Prints the skewness of the individual series with necessary details
+        Inputs: 
+        series: the individual series whose skewness has to be found
+        Returns:
+        None 
+        """
+        mean_individual, mode_individual, stdev_individual, skewness = Skewness.__find_skewness_individual(series)
+        print(f'The Mean of the individual series is {mean_individual}')
+        print(f'The Mode of the individual series is {mode_individual}')
+        print(f'The Standard Deviation value of the individual series is {stdev_individual}')
+        print(f'Hence the Skewness of the individual series is {skewness}')
+    
 
 class UnivariateRegression:
 
