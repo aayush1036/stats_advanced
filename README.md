@@ -4,15 +4,15 @@ This is a python package to make your lives easier by using python code to do st
 
 ## Installation
 
-```python 
+```
 pip install stats-advanced
 ```
 
 ## Import 
 ```python
-"""
-You can import the needed functionalities as per your needs
-"""
+
+#You can import the needed functionalities as per your needs
+
 from stats_advanced import Mean
 from stats_advanced import Median
 from stats_advanced import Mode
@@ -63,6 +63,10 @@ median_discrete.print_quartiles_discrete() #Printing the quartiles of the discre
 df_open_ended = pd.read_csv("https://raw.githubusercontent.com/aayush1036/data/main/open_ended.csv")
 median_open_ended = Median(data=df_open_ended, x_col="age", f_col="freq") #Creating an instance of the median clas
 median_open_ended.print_quartiles_open_ended() #Printing the quartiles of the open ended series series with necessary details
+
+#Initialising the individual series for finding median
+my_list_median = [i for i in range(1,100)]
+Median.print_median_individual(my_list_median) #calculating the median
 ```
 
 ### Using the Mode functionality
@@ -75,7 +79,11 @@ mode_cont.print_mode_from_ci() #Printing the mode of the continuous series with 
 #Reading the dataframe for finding the mode of discrete series 
 mode_disc = pd.read_csv("https://raw.githubusercontent.com/aayush1036/data/main/mode_discrete.csv")
 mode_discrete = Mode(data=mode_disc,x_col="X", f_col="F") #Creating instance of Mode class
-mode_discrete.print_mode_discrete() #Printing the mode of the discrete series with necessary details 
+mode_discrete.print_mode_discrete() #Printing the mode of the discrete series with necessary details
+
+#Initialising the individual series for finding mode
+my_mode = [1,1,5,3,2,9,4,56,4,8,4,5,78,879,1,3,4,5,8,6,4]
+Mode.print_mode_individual(my_mode) #calculating the mode
 ```
 
 ### Using the StandardDeviation functionality
@@ -111,6 +119,10 @@ skewness_open_ended = skew_open_ended.print_skewness_open_ended() #Printing the 
 skew_disc = pd.read_csv("https://raw.githubusercontent.com/aayush1036/data/main/skew_discrete.csv")
 skew_discrete = Skewness(data=skew_disc, x_col="X", f_col="F") #Creating instance of Skewness class
 skewness_discrete = skew_discrete.print_skewness_discrete() #Printing the skewness of the continuous series with necessary details
+
+#Initialising the series for finding skewness
+my_skew = [i for i in range(100)]
+Skewness.print_skewness_individual(my_skew) #calculating the skewness
 ```
 
 ### Using the UnivariateRegression functionality 
