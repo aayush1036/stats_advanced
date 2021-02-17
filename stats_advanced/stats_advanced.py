@@ -5,7 +5,7 @@ from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 
 __author__ = 'Aayushmaan Jain'
-__version__ = '0.0.5'
+__version__ = '0.0.6'
 __email__ = 'aayushmaan1306@gmail.com'
 
 class Mean:
