@@ -4,6 +4,10 @@ import statsmodels.api as sm
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 
+__author__ = 'Aayushmaan Jain'
+__version__ = '0.0.5'
+__email__ = 'aayushmaan1306@gmail.com'
+
 class Mean:
     def __init__(self, data, x_col, f_col):
         self.data = data
@@ -536,16 +540,38 @@ class Mode:
         
     @staticmethod
     def find_mode_individual(val_list):
+        """
+        Calculates the mode of an individual series
+        Inputs:
+        val_list: The individual series whose mode has to be calculated
+        Returns:
+        mode: The mode of the individual series
+        **NOTE:
+        Raises value error if all the values are unique
+        """
         unique_items = np.unique(val_list)
-        count_list = [val_list.count(i) for i in unique_items]
-        idx_max = count_list.index(max(count_list))
-        mode = unique_items[idx_max]
-        return mode
+        if len(unique_items) == len(val_list):
+            raise ValueError("There are no repeated values so the mode cannot be found")
+        else: 
+            count_list = [val_list.count(i) for i in unique_items]
+            idx_max = count_list.index(max(count_list))
+            mode = unique_items[idx_max]
+            return mode
     @staticmethod
     def print_mode_individual(val_list):
-        mode_individual = Mode.find_mode_individual(val_list)
-        print(f'The count of the value {mode_individual} is {val_list.count(mode_individual)}')
-        print(f'Hence the mode is {mode_individual}')
+        """
+        Prints the mode of the individual series with necessary details
+        Inputs:
+        val_list: The individual series whose mode is to be calculated
+        Returns:
+        None
+        """
+        try:
+            mode_individual = Mode.find_mode_individual(val_list)
+            print(f'The count of the value {mode_individual} is {val_list.count(mode_individual)}')
+            print(f'Hence the mode is {mode_individual}')
+        except:
+            print('Mode cannot be found as all the values are unique')
 
 
 class StandardDeviation:
@@ -787,20 +813,23 @@ class Skewness:
     @staticmethod
     def __find_skewness_individual(series):
         """
-        Finds the skewness of the individual series
+        Finds the pearson coefficient skewness of the individual series using the formula 
+        skewness = 3*(mean-median)/standard deviation
         Inputs:
         series: the invidual series whose skewness is to be found
         Returns:
         mean_individual: the mean of the individual series
-        mode_individual: the mode of the individual series
+        median_individual: the median of the individual series
         stdev_individual: the standard deviation of the individual series
         skewness: the skewness of the individual series
         """
         mean_individual = Mean.return_mean_individual(series)
-        mode_individual = Mode.find_mode_individual(series)
+        median_individual = Median.get_median_individual(series)
         stdev_individual = StandardDeviation.return_stdev_individual(series)
-        skewness = (mean_individual-mode_individual)/stdev_individual
-        return mean_individual, mode_individual, stdev_individual, skewness
+        skewness = 3*(mean_individual-median_individual)/stdev_individual
+        return mean_individual, median_individual, stdev_individual, skewness
+
+ 
     @staticmethod
     def print_skewness_individual(series):
         """
@@ -810,9 +839,9 @@ class Skewness:
         Returns:
         None 
         """
-        mean_individual, mode_individual, stdev_individual, skewness = Skewness.__find_skewness_individual(series)
+        mean_individual, median_individual, stdev_individual, skewness = Skewness.__find_skewness_individual(series)
         print(f'The Mean of the individual series is {mean_individual}')
-        print(f'The Mode of the individual series is {mode_individual}')
+        print(f'The Median of the individual series is {median_individual}')
         print(f'The Standard Deviation value of the individual series is {stdev_individual}')
         print(f'Hence the Skewness of the individual series is {skewness}')
     
